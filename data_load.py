@@ -35,12 +35,12 @@ class Net1DataFlow(DataFlow):
             yield get_mfccs_and_phones(wav_file=wav_file)
 
 
-class Net2DataFlow(DataFlow):
+# class Net2DataFlow(DataFlow):
 
-    def get_data(self):
-        while True:
-            wav_file = random.choice(self.wav_files)
-            yield get_mfccs_and_spectrogram(wav_file)
+#     def get_data(self):
+#         while True:
+#             wav_file = random.choice(self.wav_files)
+#             yield get_mfccs_and_spectrogram(wav_file)
 
 
 def load_data(mode):
@@ -112,26 +112,26 @@ def get_mfccs_and_phones(wav_file, trim=False, random_crop=True):
     return mfccs, phns
 
 
-def get_mfccs_and_spectrogram(wav_file, trim=True, random_crop=False):
-    '''This is applied in `train2`, `test2` or `convert` phase.
-    '''
+# def get_mfccs_and_spectrogram(wav_file, trim=True, random_crop=False):
+#     '''This is applied in `train2`, `test2` or `convert` phase.
+#     '''
 
 
-    # Load
-    wav, _ = librosa.load(wav_file, sr=hp.default.sr)
+#     # Load
+#     wav, _ = librosa.load(wav_file, sr=hp.default.sr)
 
-    # Trim
-    if trim:
-        wav, _ = librosa.effects.trim(wav, frame_length=hp.default.win_length, hop_length=hp.default.hop_length)
+#     # Trim
+#     if trim:
+#         wav, _ = librosa.effects.trim(wav, frame_length=hp.default.win_length, hop_length=hp.default.hop_length)
 
-    if random_crop:
-        wav = wav_random_crop(wav, hp.default.sr, hp.default.duration)
+#     if random_crop:
+#         wav = wav_random_crop(wav, hp.default.sr, hp.default.duration)
 
-    # Padding or crop
-    length = hp.default.sr * hp.default.duration
-    wav = librosa.util.fix_length(wav, length)
+#     # Padding or crop
+#     length = hp.default.sr * hp.default.duration
+#     wav = librosa.util.fix_length(wav, length)
 
-    return _get_mfcc_and_spec(wav, hp.default.preemphasis, hp.default.n_fft, hp.default.win_length, hp.default.hop_length)
+#     return _get_mfcc_and_spec(wav, hp.default.preemphasis, hp.default.n_fft, hp.default.win_length, hp.default.hop_length)
 
 
 # TODO refactoring
